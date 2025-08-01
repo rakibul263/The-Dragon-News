@@ -18,9 +18,9 @@ const NewsCard = ({ news }) => {
   );
 
   return (
-    <div className=" bg-white rounded-xl shadow-md overflow-hidden border">
+    <div className=" bg-white rounded-xl shadow-md overflow-hidden">
       {/* Author Section */}
-      <div className="flex items-center justify-between px-4 py-3 border-b">
+      <div className="flex items-center justify-between px-4 py-3 bg-base-200">
         <div className="flex items-center gap-2">
           <img
             src={author.img}
