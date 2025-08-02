@@ -1,12 +1,27 @@
-import React from "react";
-import { NavLink } from "react-router";
+import React, { use } from "react";
+import { Link, NavLink } from "react-router";
 import profile_picture from "../../assets/user.png";
+import { AuthContext } from "../../Provider/AuthProvider";
+import { toast } from "react-toastify";
 
 const Navbar = () => {
+  const { user, logoutUser } = use(AuthContext);
+  const handleLogout = () => {
+    console.log("user trying to logout");
+    logoutUser()
+      .then(() => {
+        toast.success("Logout Successfully");
+      })
+      .catch((error) => {
+        toast.error(error.message);
+      });
+  };
   return (
     <div className="grid grid-cols-3 items-center px-8 py-4 bg-white">
       {/* Left part (logo or placeholder) */}
-      <div className="text-xl font-bold"></div>
+      <div className="text-xl font-bold">
+        {user && <button className="btn btn-outline">{user.email}</button>}
+      </div>
 
       {/* Middle navigation links */}
       <div className="flex justify-center gap-10 text-accent">
@@ -28,7 +43,15 @@ const Navbar = () => {
           alt="User"
           className="w-8 h-8 rounded-full border border-black"
         />
-        <button className="btn btn-primary px-6">Login</button>
+        {user ? (
+          <Link onClick={handleLogout} className="btn btn-primary px-6">
+            Logout
+          </Link>
+        ) : (
+          <Link to="/auth/login" className="btn btn-primary px-6">
+            Login
+          </Link>
+        )}
       </div>
     </div>
   );
