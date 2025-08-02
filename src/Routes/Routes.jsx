@@ -6,6 +6,9 @@ import Login from "../Pages/Login/Login";
 import Register from "../Pages/Register/Register";
 import AuthLayout from "../Layouts/AuthLayout";
 import ErrorBoundary from "../Components/ErrorBoundary/ErrorBoundary";
+import NewsDetails from "../Pages/News-Details/NewsDetails";
+import PrivateRoute from "../Provider/PrivateRoute";
+import Loading from "../Components/Loading/Loading";
 
 const router = createBrowserRouter([
   {
@@ -44,6 +47,7 @@ const router = createBrowserRouter([
             throw new Error("Failed to load news data");
           }
         },
+        hydrateFallbackElement: <Loading></Loading>,
       },
     ],
   },
@@ -61,6 +65,16 @@ const router = createBrowserRouter([
         Component: Register,
       },
     ],
+  },
+  {
+    path: "/news-details/:id",
+    element: (
+      <PrivateRoute>
+        <NewsDetails></NewsDetails>
+      </PrivateRoute>
+    ),
+    loader: () => fetch("/news.json"),
+    hydrateFallbackElement: <Loading></Loading>,
   },
 ]);
 export default router;

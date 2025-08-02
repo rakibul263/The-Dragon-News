@@ -1,10 +1,19 @@
 import React from "react";
 import { FaStar, FaEye, FaShareAlt } from "react-icons/fa";
 import { BsBookmark } from "react-icons/bs";
+import { Link } from "react-router";
 
 const NewsCard = ({ news }) => {
-  const { title, thumbnail_url, total_view, rating, author, details, tags } =
-    news;
+  const {
+    id,
+    title,
+    thumbnail_url,
+    total_view,
+    rating,
+    author,
+    details,
+    tags,
+  } = news;
 
   // Format date
   const formattedDate = new Date(author.published_date).toLocaleDateString(
@@ -52,9 +61,12 @@ const NewsCard = ({ news }) => {
       <div className="px-4 text-sm text-gray-600 pb-4">
         <p>
           {details.slice(0, 150)}...{" "}
-          <span className="text-orange-500 font-semibold cursor-pointer">
+          <Link
+            to={`/news-details/${id}`}
+            className="text-orange-500 font-semibold cursor-pointer link link-hover"
+          >
             Read More
-          </span>
+          </Link>
         </p>
       </div>
 

@@ -7,7 +7,6 @@ import { toast } from "react-toastify";
 const Navbar = () => {
   const { user, logoutUser } = use(AuthContext);
   const handleLogout = () => {
-    console.log("user trying to logout");
     logoutUser()
       .then(() => {
         toast.success("Logout Successfully");
@@ -39,14 +38,14 @@ const Navbar = () => {
       {/* Right login section */}
       <div className="flex justify-end items-center gap-3">
         <img
-          src={profile_picture}
+          src={`${user ? user.photoURL : profile_picture }`}
           alt="User"
-          className="w-8 h-8 rounded-full border border-black"
+          className="w-12 h-12 rounded-full border border-black"
         />
         {user ? (
-          <Link onClick={handleLogout} className="btn btn-primary px-6">
+          <button onClick={handleLogout} className="btn btn-primary px-6">
             Logout
-          </Link>
+          </button>
         ) : (
           <Link to="/auth/login" className="btn btn-primary px-6">
             Login
